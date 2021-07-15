@@ -19,24 +19,13 @@ public class Zoo {
             @XmlElement(name = "cat", type = Cat.class)})
     public ArrayList<Animal> animals = new ArrayList<>();
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) {
         Zoo zoo = createZoo();
 
-        JAXBContext context = JAXBContext.newInstance(zoo.getClass());
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-        StringWriter writer = new StringWriter();
-
-        marshaller.marshal(zoo, writer);
-
-        String result = writer.toString();
-
-        System.out.println(result);
-        
+        System.out.println(zoo.marshalToXmlString());
     }
 
-    public static Zoo createZoo(){
+    public static Zoo createZoo() {
 
         Zoo zoo = new Zoo();
         Elephant elephant1 = new Elephant("Dumbo", 10, 573.6d);
@@ -49,6 +38,23 @@ public class Zoo {
         zoo.animals.add(cat1);
 
         return zoo;
+    }
+
+    public String marshalToXmlString() {
+
+        try {
+            StringWriter writer = new StringWriter();
+
+            JAXBContext context = JAXBContext.newInstance(this.getClass());
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(this, writer);
+            return writer.toString();
+
+        } catch (JAXBException jaxbException) {
+            jaxbException.printStackTrace();
+        }
+        return null;
     }
 
 }
