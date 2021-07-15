@@ -20,15 +20,7 @@ public class Zoo {
     public ArrayList<Animal> animals = new ArrayList<>();
 
     public static void main(String[] args) throws JAXBException {
-        Zoo zoo = new Zoo();
-        Elephant elephant1 = new Elephant("Dumbo", 10, 573.6d);
-        zoo.animals.add(elephant1);
-        Giraffe giraffe1 = new Giraffe("John", 5, 5.5d);
-        zoo.animals.add(giraffe1);
-        Dog dog1 = new Dog("Layka", 10);
-        zoo.animals.add(dog1);
-        Cat cat1 = new Cat("Murka", 5);
-        zoo.animals.add(cat1);
+        Zoo zoo = createZoo();
 
         JAXBContext context = JAXBContext.newInstance(zoo.getClass());
         Marshaller marshaller = context.createMarshaller();
@@ -42,6 +34,21 @@ public class Zoo {
 
         System.out.println(result);
         
+    }
+
+    public static Zoo createZoo(){
+
+        Zoo zoo = new Zoo();
+        Elephant elephant1 = new Elephant("Dumbo", 10, 573.6d);
+        zoo.animals.add(elephant1);
+        Giraffe giraffe1 = new Giraffe("John", 5, 5.5d);
+        zoo.animals.add(giraffe1);
+        Dog dog1 = new Dog("Layka", 10);
+        zoo.animals.add(dog1);
+        Cat cat1 = new Cat("Murka", 5);
+        zoo.animals.add(cat1);
+
+        return zoo;
     }
 
 }
