@@ -2,6 +2,7 @@ package JaxbExample;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Objects;
 
 @XmlType(propOrder = {"name", "age"})
 public abstract class Animal {
@@ -37,5 +38,17 @@ public abstract class Animal {
         return age;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return (age == animal.age && Objects.equals(name, animal.name));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
 
 }

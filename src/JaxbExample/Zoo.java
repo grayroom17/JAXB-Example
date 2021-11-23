@@ -11,33 +11,45 @@ import java.util.ArrayList;
 @XmlRootElement(name = "zoo")
 public class Zoo {
 
+
+    private ArrayList<Animal> animals = new ArrayList<>();
+
+    public static void main(String[] args) {
+        Zoo zoo = new Zoo(addAnimals());
+
+        System.out.println(zoo.marshalToXmlString());
+    }
+
+    public Zoo(ArrayList<Animal> animals) {
+        this.animals = animals;
+    }
+
+    public Zoo(){}
+
+    public ArrayList<Animal> getAnimals() {
+        return animals;
+    }
+
     @XmlElementWrapper(name = "animals", nillable = true)
     @XmlElements({
             @XmlElement(name = "elephant", type = Elephant.class),
             @XmlElement(name = "giraffe", type = Giraffe.class),
             @XmlElement(name = "dog", type = Dog.class),
             @XmlElement(name = "cat", type = Cat.class)})
-    public ArrayList<Animal> animals = new ArrayList<>();
-
-    public static void main(String[] args) {
-        Zoo zoo = createZoo();
-
-        System.out.println(zoo.marshalToXmlString());
+    public void setAnimals(ArrayList<Animal> animals) {
+        this.animals = animals;
     }
 
-    public static Zoo createZoo() {
+    public static ArrayList<Animal> addAnimals() {
 
-        Zoo zoo = new Zoo();
-        Elephant elephant1 = new Elephant("Dumbo", 10, 573.6d);
-        zoo.animals.add(elephant1);
-        Giraffe giraffe1 = new Giraffe("John", 5, 5.5d);
-        zoo.animals.add(giraffe1);
-        Dog dog1 = new Dog("Layka", 10);
-        zoo.animals.add(dog1);
-        Cat cat1 = new Cat("Murka", 5);
-        zoo.animals.add(cat1);
+        ArrayList<Animal> animals = new ArrayList<>();
 
-        return zoo;
+        animals.add(new Elephant("Dumbo", 10, 573.6d));
+        animals.add(new Giraffe("Melman", 5, 5.5d));
+        animals.add(new Dog("Layka", 10));
+        animals.add(new Cat("Murka", 5));
+
+        return animals;
     }
 
     public String marshalToXmlString() {

@@ -6,7 +6,5 @@ public class Dog extends Animal {
         super(name, age);
     }
 
-    Dog() {
-    }
 
 }
